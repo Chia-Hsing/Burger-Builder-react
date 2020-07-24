@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const authStart = () => {
     return {
-        type: actionTypes.AUTH_START
+        type: actionTypes.AUTH_START,
     }
 }
 
@@ -11,14 +11,14 @@ export const authSuccess = (tokenId, userId) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         tokenId: tokenId,
-        userId: userId
+        userId: userId,
     }
 }
 
-export const authFail = err => {
+export const authFail = (err) => {
     return {
         type: actionTypes.AUTH_FAIL,
-        error: err
+        error: err,
     }
 }
 
@@ -31,65 +31,66 @@ export const logout = () => {
     }
 }
 
-export const checkAuthTimeout = expirationTime => {
-    return dispatch => {
-        setTimeout(()=>{
+export const checkAuthTimeout = (expirationTime) => {
+    return (dispatch) => {
+        setTimeout(() => {
             dispatch(logout())
         }, expirationTime * 1000)
     }
 }
 
-
-export const setAuthRedirectPath = path => {
+export const setAuthRedirectPath = (path) => {
     return {
         type: actionTypes.SET_AUTH_REDIRECT_PATH,
-        path: path
+        path: path,
     }
 }
 
 export const auth = (email, password, isSignup) => {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(authStart())
         const authData = {
             email: email,
             password: password,
-            returnSecureToken: true
+            returnSecureToken: true,
         }
-        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBN_fO3w8cyj1OPYLvZywMpTUPjEYvvGZc'
+        let url =
+            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBN_fO3w8cyj1OPYLvZywMpTUPjEYvvGZc'
 
         if (!isSignup) {
-            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBN_fO3w8cyj1OPYLvZywMpTUPjEYvvGZc'
+            url =
+                'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBN_fO3w8cyj1OPYLvZywMpTUPjEYvvGZc'
         }
 
-        axios.post(url, authData)
-        .then( res => {
-            const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000)
-            localStorage.setItem('token', res.data.idToken)
-            localStorage.setItem('expirationDate', expirationDate)
-            localStorage.setItem('userId', res.data.localId)
-            dispatch(authSuccess(res.data.idToken, res.data.localId))
-            dispatch(checkAuthTimeout(res.data.expiresIn))
-        } )
-        .catch( err => {
-            dispatch(authFail(err.response.data.error))
-        } )
+        axios
+            .post(url, authData)
+            .then((res) => {
+                const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000)
+                localStorage.setItem('token', res.data.idToken)
+                localStorage.setItem('expirationDate', expirationDate)
+                localStorage.setItem('userId', res.data.localId)
+                dispatch(authSuccess(res.data.idToken, res.data.localId))
+                dispatch(checkAuthTimeout(res.data.expiresIn))
+            })
+            .catch((err) => {
+                dispatch(authFail(err.response.data.error))
+            })
     }
 }
 
-
 export const authCheckState = () => {
-    return dispatch => {
-        const token =localStorage.getItem('token')
+    return (dispatch) => {
+        const token = localStorage.getItem('token')
         if (!token) {
             dispatch(logout())
         } else {
-            const expirationDate = new Date(localStorage.getItem('expirationDate')) 
+            const expirationDate = new Date(localStorage.getItem('expirationDate'))
             if (expirationDate <= new Date()) {
                 dispatch(logout())
             } else {
                 const userId = localStorage.getItem('userId')
-                dispatch(authSuccess(token, userId)) 
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 )) 
+                dispatch(authSuccess(token, userId))
+                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
             }
         }
     }

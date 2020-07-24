@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import Aux from '../../hoc/Aux'
 import classes from './Layout.module.css'
 import Toolbar from '../Navigation/Toolbar/Toolbar'
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer'
-import { connect } from 'react-redux'
-
 
 class Layout extends Component {
-
     state = {
-        showSideDrawer: false
+        showSideDrawer: false,
     }
 
     sideDrawerClosedHandler = () => {
@@ -17,34 +16,29 @@ class Layout extends Component {
     }
 
     drawerToggleHandler = () => {
-        this.setState(( prevState ) => { 
+        this.setState((prevState) => {
             return { showSideDrawer: !prevState.showSideDrawer } // when the value of state is going to use the previous state,  use the function with argument prevState to avoid problems.
         })
     }
 
-    render () {
+    render() {
         return (
             <Aux>
-                <Toolbar 
-                drawerToggleClicked = { this.drawerToggleHandler }
-                isAuth = { this.props.isAuthenticated }
-                />
+                <Toolbar drawerToggleClicked={this.drawerToggleHandler} isAuth={this.props.isAuthenticated} />
                 <SideDrawer
-                open = { this.state.showSideDrawer } 
-                closed = { this.sideDrawerClosedHandler }
-                isAuth = { this.props.isAuthenticated }
+                    open={this.state.showSideDrawer}
+                    closed={this.sideDrawerClosedHandler}
+                    isAuth={this.props.isAuthenticated}
                 />
-                <main className = { classes.content }>
-                    { this.props.children }
-                </main>
+                <main className={classes.content}>{this.props.children}</main>
             </Aux>
         )
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
     }
 }
 
