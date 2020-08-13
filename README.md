@@ -1,6 +1,6 @@
 # Burger-Builder
 
-A project from the course [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/) on Udemy.
+A project from the online course [React-The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/) on Udemy, which applies the basic and advanced knowledge of React such as JSX, Redux, Thunk, and react-router...
 
 ## App Display
 
