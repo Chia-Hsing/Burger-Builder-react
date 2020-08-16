@@ -15,4 +15,4 @@ A project from the online course [React-The Complete Guide](https://www.udemy.co
 ![image](https://drive.google.com/uc?export=view&id=1J5LJP7ZyVBipuCA0ANNfk48o432s-BML)
 
 ## Live Demo
-[Live Demo](https://chia-hsing.github.io/Burger-Builder-react/)
+[Burger Builder](https://chia-hsing.github.io/Burger-Builder-react/)
