@@ -2,7 +2,7 @@
 
 A project from the online course [React-The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/) on Udemy, which applies the basic and advanced knowledge of React such as JSX, Redux, Thunk, and react-router...
 
-## App Display
+# App Display
 
 ![image](https://drive.google.com/uc?export=view&id=1LvM29fsBwW1VIml6WtnrlODOvikBvy5N)
 
@@ -14,5 +14,6 @@ A project from the online course [React-The Complete Guide](https://www.udemy.co
 
 ![image](https://drive.google.com/uc?export=view&id=1J5LJP7ZyVBipuCA0ANNfk48o432s-BML)
 
-## Live Demo
+# Live Demo
+
 [Burger Builder](https://chia-hsing.github.io/Burger-Builder-react/)
